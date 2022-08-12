@@ -1,7 +1,7 @@
-const IP_ADDRESS_API_ENDPOINT = 'https://api.ipify.org?format=json';
-const COORDS_API_ENDPOINT = 'http://ipwho.is/';
-
-module.exports = {
-  IP_ADDRESS_API_ENDPOINT,
-  COORDS_API_ENDPOINT,
+const ENDPOINTS = {
+  IP_ADDRESS_API_ENDPOINT: 'https://api.ipify.org?format=json',
+  COORDS_API_ENDPOINT:  'http://ipwho.is/',
+  ISS_PASS_API_ENDPOINT: ' https://iss-pass.herokuapp.com/json/',
 };
+
+module.exports = { ENDPOINTS };

@@ -1,8 +1,8 @@
 const request = require('request');
-const { IP_ADDRESS_API_ENDPOINT, COORDS_API_ENDPOINT } = require('./constants');
+const { ENDPOINTS } = require('./constants');
 
 const fetchMyIP = (callback) => {
-  request(IP_ADDRESS_API_ENDPOINT, (err, res, body) => {
+  request(ENDPOINTS.IP_ADDRESS_API_ENDPOINT, (err, res, body) => {
     if (err) {
       callback(err, null);
       return;
@@ -18,7 +18,7 @@ const fetchMyIP = (callback) => {
 };
 
 const fetchCoordsByIP = (ip, callback) => {
-  request(COORDS_API_ENDPOINT + ip, (err, res, body) => {
+  request(ENDPOINTS.COORDS_API_ENDPOINT + ip, (err, res, body) => {
     if (err) {
       callback(err, null);
       return;
@@ -40,8 +40,24 @@ const fetchCoordsByIP = (ip, callback) => {
   });
 };
 
+const fetchISSFlyOverTimes = (coords, callback) => {
+  request(ENDPOINTS.ISS_PASS_API_ENDPOINT + `?lat=${coords.latitude}&lon=${coords.longitude}`, (err, res, body) => {
+    if (err) {
+      callback(err, null);
+      return;
+    }
+
+    if (res.statusCode !== 200) {
+      callback(Error(`Status Code ${res.statusCode} when fetching ISS pass. Response: ${body}`), null);
+      return;
+    }
+
+    callback(null, JSON.parse(body).response);
+  });
+};
 
 module.exports = {
   fetchMyIP,
   fetchCoordsByIP,
+  fetchISSFlyOverTimes,
 };
