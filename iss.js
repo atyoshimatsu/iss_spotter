@@ -4,8 +4,8 @@ const { IP_ADDRESS_API_ENDPOINT } = require('./constants');
 const fetchMyIP = (callback) => {
   request(IP_ADDRESS_API_ENDPOINT, (err, res, body) => {
     if (err) {
-     callback(err, null);
-     return;
+      callback(err, null);
+      return;
     }
 
     if (res.statusCode !== 200) {
